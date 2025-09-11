@@ -57,7 +57,7 @@ const Header = ({ searchQuery, setSearchQuery, onAddCategoryClick }) => {
                       transition hover:bg-violet-700"
           >
             <Plus size={16} />
-            <span className="hidden sm:inline">Add Category</span>
+            <span className="hidden sm:inline whitespace-nowrap">Add Category</span>
           </button>
 
 

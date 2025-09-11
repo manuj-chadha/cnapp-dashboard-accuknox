@@ -55,7 +55,7 @@ const AddWidgetForm = ({ categoryId, onCreate }) => {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4 space-y-2">
-      <h1 className="w-full y-2 text-black/90 dark:text-white/90 font-extrabold">Create a widget</h1>
+      <h1 className="w-full y-2 text-black/90 dark:text-white/90 font-semibold">Create a widget</h1>
       <input
         type="text"
         placeholder="Widget Name"

@@ -47,7 +47,7 @@ const Widget = ({ widget, categoryId }) => {
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">{getIcon(widget.name)}</div>
         <div className="pt-0.5">
-          <h3 className="font-semibold text-slate-800 dark:text-slate-100">{widget.name}</h3>
+          <h3 className="font-medium text-slate-800 dark:text-slate-100">{widget.name}</h3>
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{widget.text}</p>
         </div>
       </div>

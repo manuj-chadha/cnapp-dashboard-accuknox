@@ -51,14 +51,14 @@ const Header = ({ searchQuery, setSearchQuery, onAddCategoryClick }) => {
 
           {/* Add Category */}
           <button
-  onClick={onAddCategoryClick}
-  className="flex items-center justify-center gap-1 px-3 sm:px-4 py-2 
-             rounded-lg bg-violet-600 text-white font-medium shadow-md 
-             transition hover:bg-violet-700"
->
-  <Plus size={16} />
-  <span className="hidden sm:inline">Add Category</span>
-</button>
+            onClick={onAddCategoryClick}
+            className="flex items-center justify-center gap-1 px-3 sm:px-4 py-2 
+                      rounded-lg bg-violet-600 text-white font-medium shadow-md 
+                      transition hover:bg-violet-700"
+          >
+            <Plus size={16} />
+            <span className="hidden sm:inline">Add Category</span>
+          </button>
 
 
           {/* Theme Toggle */}

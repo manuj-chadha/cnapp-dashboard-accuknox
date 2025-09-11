@@ -113,8 +113,6 @@
 * {
   font-family: "Outfit", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
 }
 .bg {
   background-image: radial-gradient(#cbd5e121 1px, transparent 1px); 
@@ -126,26 +124,24 @@ input, textarea, select, button {
   border: none;
   outline: none;
 }
-/* For Webkit browsers (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
-  width: 8px; /* thin */
+  width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(200, 200, 200, 0.2); /* subtle light track */
+  background: rgba(200, 200, 200, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db; /* slate-300 */
-  border-radius: 9999px; /* fully rounded */
+  background: #d1d5db;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af; /* slate-400 on hover */
+  background: #9ca3af;
 }
 
-/* Firefox scrollbar */
 * {
   scrollbar-width: thin;
   scrollbar-color: #d1d5db rgba(200, 200, 200, 0.2);

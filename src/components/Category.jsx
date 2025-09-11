@@ -23,7 +23,7 @@ const Category = ({ category, allWidgets, filteredWidgetIds, onAddWidgetClick })
   return (
     <section className="mb-12">
       <div className="mb-5">
-        <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-tight">
+        <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 tracking-tight">
           {category.title}
         </h2>
       </div>

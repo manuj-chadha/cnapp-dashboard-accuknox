@@ -1,0 +1,27 @@
+{
+  "categories": [
+    {
+      "id": "cspm",
+      "title": "CSPM Executive Dashboard",
+      "widgetIds": ["widget-1", "widget-2"]
+    },
+    {
+      "id": "cwpp",
+      "title": "CWPP Dashboard",
+      "widgetIds": ["widget-3", "widget-4"]
+    },
+    {
+      "id": "registry",
+      "title": "Registry Scan",
+      "widgetIds": ["widget-5", "widget-6"]
+    }
+  ],
+  "widgets": {
+    "widget-1": { "id": "widget-1", "name": "Cloud Accounts", "text": "Total connected cloud accounts." },
+    "widget-2": { "id": "widget-2", "name": "Cloud Account Risk Assessment", "text": "Risk analysis of all cloud assets." },
+    "widget-3": { "id": "widget-3", "name": "Top 5 Namespace Specific Alerts", "text": "Critical alerts from specific K8s namespaces." },
+    "widget-4": { "id": "widget-4", "name": "Workload Alerts", "text": "Real-time alerts from running workloads." },
+    "widget-5": { "id": "widget-5", "name": "Image Risk Assessment", "text": "Vulnerability count in container images." },
+    "widget-6": { "id": "widget-6", "name": "Image Security Issues", "text": "Security misconfigurations found in images." }
+  }
+}

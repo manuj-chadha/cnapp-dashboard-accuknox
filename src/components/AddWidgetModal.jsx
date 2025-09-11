@@ -136,9 +136,11 @@ const AddWidgetModal = ({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[50vw] bg-white dark:bg-slate-800 shadow-2xl z-50 flex flex-col"
+              className="fixed top-0 right-0 h-full w-full sm:w-[80vw] lg:w-[50vw] 
+                        bg-white dark:bg-slate-800 shadow-2xl z-50 flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
+
               {/* Header */}
               <div className="flex justify-between items-center p-5 border-b border-slate-200 dark:border-slate-700">
                 <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
@@ -148,7 +150,7 @@ const AddWidgetModal = ({
                   onClick={onClose}
                   className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
-                  <X size={20} />
+                  <X size={24} className="sm:size-20" />
                 </button>
               </div>
 
@@ -172,7 +174,7 @@ const AddWidgetModal = ({
               </div>
 
               {/* Content */}
-              <div className="flex-1 overflow-y-auto p-6">
+              <div className="flex-1 overflow-y-auto p-6 pb-20">
                 {activeCategory ? (
                   <>
                     {activeCategory.widgetIds.length > 0 ? (

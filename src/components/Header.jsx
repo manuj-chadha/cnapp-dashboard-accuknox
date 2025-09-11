@@ -27,7 +27,7 @@ const Header = ({ searchQuery, setSearchQuery, onAddCategoryClick }) => {
   const toggleTheme = () => setIsDarkMode((prev) => !prev);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
+    <header className="sticky top-0 z-40 bg-white/80 dark:bg-black/50 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
       <div className="container mx-auto px-4 sm:px-6 lg:p-8 flex items-center justify-between h-20">
         <div className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-purple-500 text-transparent bg-clip-text">
           CNAPP Dashboard

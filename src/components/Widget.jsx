@@ -34,7 +34,7 @@ const Widget = ({ widget, categoryId }) => {
     <motion.div
       variants={itemVariants}
       layout
-      className="relative rounded-lg p-5 group bg-white dark:bg-slate-800 shadow-md dark:shadow-lg border border-slate-200/80 dark:border-slate-700 hover:shadow-lg transition-shadow"
+      className="relative rounded-lg p-5 py-8 group bg-white dark:bg-black/50 shadow-md dark:shadow-lg border border-slate-200/80 dark:border-slate-700 hover:shadow-lg transition-shadow"
     >
       <button
         onClick={handleRemove}

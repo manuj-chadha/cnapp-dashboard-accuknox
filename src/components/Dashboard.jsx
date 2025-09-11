@@ -28,7 +28,7 @@ const Dashboard = () => {
   const filteredWidgetIds = new Set(filteredWidgets.map((w) => w.id));
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 font-sans bg">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 bg">
       {/* Header with Add Category */}
       <Header
         searchQuery={searchQuery}
@@ -51,10 +51,13 @@ const Dashboard = () => {
       {/* Add Widget Modal */}
       {selectedCategory && (
         <AddWidgetModal
-          isOpen={isWidgetModalOpen}
-          onClose={() => setIsWidgetModalOpen(false)}
-          category={selectedCategory}
-        />
+  isOpen={isWidgetModalOpen}
+  onClose={() => setIsWidgetModalOpen(false)}
+  categories={categories} // full categories array
+  widgets={widgets}       // full widgets object
+  initialCategory={selectedCategory} // optional: set default active tab
+/>
+
       )}
 
       {/* Add Category Modal */}

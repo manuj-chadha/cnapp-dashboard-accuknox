@@ -28,7 +28,7 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -64,7 +64,7 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
                   placeholder="Category Name"
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
-                  className="w-full p-2.5 rounded-lg placeholder:text-black/50 dark:placeholder:text-white/50 bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 focus:ring-1 focus:ring-violet-500"
+                  className="w-full p-2.5 rounded-lg placeholder:text-black/50 dark:placeholder:text-white/50 dark:text-white/90 bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 focus:ring-1 focus:ring-violet-500"
                 />
                 <button
                   type="submit"

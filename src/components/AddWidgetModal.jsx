@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Trash2, PlusCircle } from "lucide-react";
+import { X, Trash2 } from "lucide-react";
 import {
   createAndAddWidgetToCategory,
   addWidgetToCategory,
@@ -10,22 +10,27 @@ import {
 } from "../slices/dashboardSlice";
 import ConfirmModal from "./ConfirmModal";
 
-const WidgetItem = ({ widget, isSelected, onToggle, onDelete }) => (
+const WidgetItem = ({ widget, categoryId, isSelected, onToggle, onDelete }) => (
   <div className="flex items-center justify-between p-3 bg-black/5 dark:bg-white/5 rounded-lg">
-    <div className="flex items-center gap-3">
-      <input
-        type="checkbox"
-        id={`widget-${widget.id}`}
-        checked={isSelected}
-        onChange={(e) => onToggle(widget.id, e.target.checked)}
-        className="h-5 w-5 rounded text-violet-600 bg-transparent border-gray-200 dark:border-gray-700 focus:ring-1 focus:ring-violet-500"
-      />
-      <label
-        htmlFor={`widget-${widget.id}`}
-        className="font-medium text-slate-800 dark:text-slate-200"
-      >
-        {widget.name}
-      </label>
+    <div className="flex flex-col">
+      <div className="flex items-center gap-3">
+        <input
+          type="checkbox"
+          id={`widget-${widget.id}`}
+          checked={isSelected}
+          onChange={(e) => onToggle(categoryId, widget.id, e.target.checked)}
+          className="h-5 w-5 rounded text-violet-600 bg-transparent border-slate-400 focus:ring-violet-500"
+        />
+        <label
+          htmlFor={`widget-${widget.id}`}
+          className="font-medium text-slate-800 dark:text-slate-200"
+        >
+          {widget.name}
+        </label>
+      </div>
+      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+        {widget.text}
+      </p>
     </div>
     <button
       onClick={() => onDelete(widget.id)}
@@ -36,167 +41,196 @@ const WidgetItem = ({ widget, isSelected, onToggle, onDelete }) => (
   </div>
 );
 
-const AddWidgetModal = ({ isOpen, onClose, category }) => {
-  const dispatch = useDispatch();
-  const allWidgets = useSelector((state) => state.dashboard.widgets || {});
+const AddWidgetForm = ({ categoryId, onCreate }) => {
+  const [name, setName] = useState("");
+  const [text, setText] = useState("");
 
-  const [newWidgetName, setNewWidgetName] = useState("");
-  const [newWidgetText, setNewWidgetText] = useState("");
-  const [selectedWidgetIds, setSelectedWidgetIds] = useState([]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name.trim() || !text.trim()) return;
+    onCreate(categoryId, name.trim(), text.trim());
+    setName("");
+    setText("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-4 space-y-2">
+      <h1 className="w-full y-2 text-black/90 dark:text-white/90 font-extrabold">Create a widget</h1>
+      <input
+        type="text"
+        placeholder="Widget Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="w-full p-2 bg-slate-50 border rounded-md dark:bg-slate-700 dark:border-slate-600 dark:text-white"
+      />
+      <textarea
+        placeholder="Widget Text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        className="w-full p-2 bg-slate-50 border rounded-md dark:bg-slate-700 dark:border-slate-600 dark:text-white"
+      />
+      <button
+        type="submit"
+        className="w-full py-2 bg-violet-600 text-white font-semibold rounded-lg hover:bg-violet-700 shadow-md"
+      >
+        Add Widget
+      </button>
+    </form>
+  );
+};
+
+const AddWidgetModal = ({
+  isOpen,
+  onClose,
+  categories = [],
+  widgets = {},
+  initialCategory = null,
+}) => {
+  const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState("");
   const [widgetToDelete, setWidgetToDelete] = useState(null);
 
   useEffect(() => {
-    setSelectedWidgetIds(category?.widgetIds || []);
-  }, [category?.widgetIds]);
+    if (isOpen) {
+      setActiveTab((prev) => prev || initialCategory?.id || categories[0]?.id || "");
+    }
+  }, [isOpen]);
 
-  const handleCheckboxChange = useCallback(
-    (widgetId, isChecked) => {
-      setSelectedWidgetIds((prev) =>
-        isChecked ? [...prev, widgetId] : prev.filter((id) => id !== widgetId)
-      );
+  const activeCategory = categories.find((cat) => cat.id === activeTab);
 
-      if (isChecked) {
-        dispatch(addWidgetToCategory({ categoryId: category.id, widgetId }));
-      } else {
-        dispatch(removeWidgetFromCategory({ categoryId: category.id, widgetId }));
-      }
-    },
-    [dispatch, category?.id]
-  );
+  const handleCheckboxChange = (categoryId, widgetId, isChecked) => {
+    if (isChecked) {
+      dispatch(addWidgetToCategory({ categoryId, widgetId }));
+    } else {
+      dispatch(removeWidgetFromCategory({ categoryId, widgetId }));
+    }
+  };
 
-  // Create new widget
-  const handleCreateWidget = useCallback(
-    (e) => {
-      e.preventDefault();
-      const name = newWidgetName.trim();
-      const text = newWidgetText.trim();
+  const handleCreateWidget = (categoryId, name, text) => {
+    dispatch(createAndAddWidgetToCategory({ categoryId, widgetName: name, widgetText: text }));
+  };
 
-      if (!name) return alert("Widget name cannot be empty!");
-      if (!text) return alert("Widget description cannot be empty!");
-
-      dispatch(
-        createAndAddWidgetToCategory({
-          categoryId: category.id,
-          widgetName: name,
-          widgetText: text,
-        })
-      );
-
-      setNewWidgetName("");
-      setNewWidgetText("");
-    },
-    [dispatch, category?.id, newWidgetName, newWidgetText]
-  );
-
-  // Global delete
-  const handleDeleteGlobally = useCallback(
-    (widgetId) => {
-      dispatch(deleteWidgetGlobally({ widgetId }));
-      setSelectedWidgetIds((prev) => prev.filter((id) => id !== widgetId));
-      setWidgetToDelete(null);
-    },
-    [dispatch]
-  );
+  const handleDeleteGlobally = (widgetId) => {
+    dispatch(deleteWidgetGlobally({ widgetId }));
+    setWidgetToDelete(null);
+  };
 
   return (
     <>
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4"
-            onClick={onClose}
-          >
+          <>
+            {/* Overlay */}
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg border border-white/20 dark:border-slate-700 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col"
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={onClose}
+            />
+
+            {/* Sidebar */}
+            <motion.div
+              key="sidebar"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed top-0 right-0 h-full w-[50vw] bg-white dark:bg-slate-800 shadow-2xl z-50 flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="flex justify-between items-center p-5 border-b border-black/10 dark:border-white/10">
+              <div className="flex justify-between items-center p-5 border-b border-slate-200 dark:border-slate-700">
                 <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
-                  Add Widget to "{category?.title}"
+                  Personalise your dashboard
                 </h2>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-full hover:bg-black/10 dark:hover:bg-white/10"
+                  className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
                   <X size={20} />
                 </button>
               </div>
 
-              {/* Content */}
-              <div className="p-6 overflow-y-auto">
-                <h3 className="font-semibold mb-3 text-slate-700 dark:text-slate-300">
-                  Available Widgets
-                </h3>
-                <div className="space-y-3 mb-8">
-                  {Object.values(allWidgets).map((widget) => (
-                    <WidgetItem
-                      key={widget?.id}
-                      widget={widget}
-                      isSelected={selectedWidgetIds.includes(widget?.id)}
-                      onToggle={handleCheckboxChange}
-                      onDelete={(id) => setWidgetToDelete(id)}
-                    />
+              {/* Tabs */}
+              <div className="p-2 border-b border-slate-200 dark:border-slate-700">
+                <nav className="flex p-1 space-x-2 overflow-x-auto">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setActiveTab(cat.id)}
+                      className={`px-4 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
+                        activeTab === cat.id
+                          ? "bg-violet-100 text-violet-700 dark:bg-slate-700 dark:text-white"
+                          : "text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700/50"
+                      }`}
+                    >
+                      {cat.title}
+                    </button>
                   ))}
-                </div>
+                </nav>
+              </div>
 
-                {/* Create New Widget */}
-                <h3 className="font-semibold mb-3 border-t border-black/10 dark:border-white/10 pt-6 text-slate-700 dark:text-slate-300">
-                  Create a New Widget
-                </h3>
-                <form onSubmit={handleCreateWidget} className="space-y-4">
-                  <input
-                    type="text"
-                    placeholder="Widget Name"
-                    value={newWidgetName}
-                    onChange={(e) => setNewWidgetName(e.target.value)}
-                    className="placeholder:text-black/50 dark:placeholder:text-white/50 w-full p-2.5 rounded-lg bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 focus:ring-1 focus:ring-violet-500"
-                  />
-                  <textarea
-                    placeholder="Widget Description"
-                    value={newWidgetText}
-                    onChange={(e) => setNewWidgetText(e.target.value)}
-                    rows="3"
-                    className="placeholder:text-black/50 dark:placeholder:text-white/50 w-full p-2.5 rounded-lg bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 focus:ring-1 focus:ring-violet-500"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full flex justify-center items-center gap-2 px-4 py-2.5 bg-violet-600 text-white font-semibold rounded-lg hover:bg-violet-700 shadow-md"
-                  >
-                    <PlusCircle size={18} />
-                    Create and Add Widget
-                  </button>
-                </form>
+              {/* Content */}
+              <div className="flex-1 overflow-y-auto p-6">
+                {activeCategory ? (
+                  <>
+                    {activeCategory.widgetIds.length > 0 ? (
+                      <div className="space-y-3">
+                        {activeCategory.widgetIds.map((wid) =>
+                          widgets[wid] ? (
+                            <WidgetItem
+                              key={wid}
+                              widget={widgets[wid]}
+                              categoryId={activeCategory.id}
+                              isSelected={activeCategory.widgetIds.includes(wid)}
+                              onToggle={handleCheckboxChange}
+                              onDelete={setWidgetToDelete}
+                            />
+                          ) : null
+                        )}
+                      </div>
+                    ) : (
+                      <p className="text-center text-slate-500 dark:text-slate-400 py-10">
+                        No widgets in this category yet.
+                      </p>
+                    )}
+
+                    <AddWidgetForm
+                      categoryId={activeCategory.id}
+                      onCreate={handleCreateWidget}
+                    />
+                  </>
+                ) : (
+                  <p className="text-center text-slate-500 dark:text-slate-400 py-10">
+                    No categories available.
+                  </p>
+                )}
               </div>
 
               {/* Footer */}
-              <div className="p-4 border-t border-black/10 dark:border-white/10 text-right">
+              <div className="p-4 border-t border-slate-200 dark:border-slate-700 flex justify-end gap-3">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700"
+                  className="px-5 py-2 bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-100 font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-500"
                 >
-                  Close
+                  Cancel
                 </button>
               </div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
 
-      {/* Confirm Delete Modal */}
+      {/* Confirm delete modal */}
       <ConfirmModal
         isOpen={!!widgetToDelete}
         onClose={() => setWidgetToDelete(null)}
         onConfirm={() => handleDeleteGlobally(widgetToDelete)}
         title="Delete Widget"
-        description={`Are you sure you want to delete "${widgetToDelete ? allWidgets[widgetToDelete]?.name : ''}" globally? This cannot be undone.`}
+        description={`Are you sure you want to delete "${
+          widgetToDelete ? widgets[widgetToDelete]?.name : ""
+        }" globally?`}
       />
     </>
   );

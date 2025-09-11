@@ -150,7 +150,7 @@ const AddWidgetModal = ({
                   onClick={onClose}
                   className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
-                  <X size={24} className="sm:size-20" />
+                  <X size={24} />
                 </button>
               </div>
 

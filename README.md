@@ -40,15 +40,13 @@ Built as a frontend trainee assignment to showcase skills in **React, Redux Tool
 ---
 
 ## 📂 Project Structure
-
-/src
-/components # Reusable UI (widgets, modals, headers, etc.)
-/slices # Redux slices (dashboard state, widget/category logic)
-/pages # Dashboard page(s)
-/assets # Static assets
-App.jsx
-main.jsx
-
+src/
+├── components/ # Reusable UI (widgets, modals, headers, etc.)
+├── slices/ # Redux slices (dashboard state, widget/category logic)
+├── pages/ # Dashboard page(s)
+├── assets/ # Static assets
+├── App.jsx
+└── main.jsx
 
 
 ---

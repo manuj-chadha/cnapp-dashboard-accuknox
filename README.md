@@ -1,85 +1,64 @@
-# CNAPP Dashboard – AccuKnox (Frontend Trainee Assignment)
+# CNAPP Dashboard – AccuKnox
 
-A dynamic dashboard app to manage, customize, and view widgets in different categories — built using React, Vite, Redux Toolkit, Tailwind CSS and Framer Motion. The project is a frontend assignment to create an interactive, modern dashboard with persistence, theme switching, and widget management features.
-
----
-
-## Table of Contents
-
-- [Features](#features)  
-- [Tech Stack](#tech-stack)  
-- [Architecture & Folder Structure](#architecture--folder-structure)  
-- [Getting Started](#getting-started)  
-- [Usage](#usage)  
-- [Future Improvements](#future-improvements)  
-- [License](#license)  
+A customizable cloud security dashboard where users can add, remove, and manage widgets across different categories.  
+Built as a frontend trainee assignment to showcase skills in **React, Redux Toolkit, Tailwind CSS, and Framer Motion**.
 
 ---
 
-## Features
+## 🚀 Live Demo
 
-Here are the core features implemented:
-
-- **Widget management**: Add, remove, toggle widgets per category.  
-- **Create new widgets**: Ability to define new widget name & description (or content) and add to a category.  
-- **Persisted state**: Widget selections / categories persist (likely in local storage or Redux + local persistence) so UI persists between sessions.  
-- **Dark mode / theme toggle**: Support for light/dark UI.  
-- **Animations / transitions**: Using Framer Motion for smooth opening/closing of modals or modal-like UI.  
-- **Responsive design**: Dashboard adapts to various screen sizes.  
+🔗 [Deployed App on Vercel](https://cnapp-dashboard-accuknox.vercel.app)
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-Here’s the list of major technologies used:
-
-| Layer | Technology / Library |
-|---|---|
-| Frontend framework | React (with Vite) |
-| State management | Redux Toolkit |
-| Styling / CSS | Tailwind CSS |
-| Animation / transitions | Framer Motion |
-| Icons | Lucide-React (and maybe others) |
-| Build / Tooling | Vite, npm scripts |
-| Persistence | (Your implementation: e.g. localStorage or Redux Persist) |
+- **Widget Management**: Add or remove widgets from categories dynamically.  
+- **Create New Widgets**: Define widget name & description and attach them to categories.  
+- **Persistent State**: Dashboard selections are preserved locally.  
+- **Theme Toggle**: Switch between light and dark modes.  
+- **Smooth Animations**: Framer Motion for transitions and modal/sidebar animations.  
+- **Clean UI**: Tailwind CSS for modern and responsive design.  
 
 ---
 
-## Architecture & Folder Structure
+## 🛠️ Tech Stack
 
-Here’s what the structure looks like (approximate, based on repo):
+**Frontend Framework**  
+- React (with Vite for bundling & dev server)  
+
+**State Management**  
+- Redux Toolkit  
+
+**Styling & UI**  
+- Tailwind CSS  
+- Lucide React (icons)  
+
+**Animations**  
+- Framer Motion  
+
+---
+
+## 📂 Project Structure
+
 /src
-/components # Reusable UI components (modals, widget items etc.)
-/slices # Redux slices (dashboard, widgets, categories etc.)
-/pages / views # Main dashboard page(s)
-/public
-index.html
-tailwind.config.js
-vite.config.js
-package.json
+/components # Reusable UI (widgets, modals, headers, etc.)
+/slices # Redux slices (dashboard state, widget/category logic)
+/pages # Dashboard page(s)
+/assets # Static assets
+App.jsx
+main.jsx
 
-
-Key design choices:
-
-- Modular componentization: separating concerns between widget item, modal, dashboard layout etc.
-- State slice(s): Dashboard slice managing widgets/categories adds/removes etc.
-- Framer Motion + AnimatePresence for controlling presence/transition UI.
-- Tailwind for styling, dark mode, responsive layouts.
 
 ---
 
-## Getting Started
-
-These are steps to run this project on your machine.
+## ⚡ Getting Started
 
 ### Prerequisites
-
-- Node.js (v14+ or latest stable)  
-- npm (or yarn)  
+- Node.js (>=18.x)
+- npm or yarn
 
 ### Installation
-
 git clone https://github.com/manuj-chadha/cnapp-dashboard-accuknox.git
 cd cnapp-dashboard-accuknox
 npm install
-

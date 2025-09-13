@@ -35,7 +35,7 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
           onClick={onClose}
         >
           <motion.div
-            className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg border border-white/20 dark:border-slate-700 rounded-xl shadow-2xl w-full max-w-md flex flex-col"
+            className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-lg border border-white/20 dark:border-slate-700 rounded-xl shadow-2xl w-full max-w-md flex flex-col"
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}

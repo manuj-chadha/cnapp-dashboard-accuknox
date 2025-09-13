@@ -28,7 +28,7 @@ const Dashboard = () => {
   const filteredWidgetIds = new Set(filteredWidgets.map((w) => w.id));
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 bg">
+    <div className="min-h-screen bg-slate-50 pt-20 dark:bg-gray-950 bg">
       {/* Header with Add Category */}
       <Header
         searchQuery={searchQuery}

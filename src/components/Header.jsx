@@ -12,7 +12,6 @@ const Header = ({ searchQuery, setSearchQuery, onAddCategoryClick }) => {
     }
   });
 
-  // Sync theme with <html>
   useEffect(() => {
     const root = document.documentElement;
     const theme = isDarkMode ? "dark" : "light";
@@ -21,7 +20,7 @@ const Header = ({ searchQuery, setSearchQuery, onAddCategoryClick }) => {
   }, [isDarkMode]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-black/50 backdrop-blur-sm">
+    <header className="fixed top-0 w-full z-40 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-black/50 backdrop-blur-sm">
       <div className="container mx-auto flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Brand */}

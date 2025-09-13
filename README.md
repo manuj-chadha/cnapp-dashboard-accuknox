@@ -50,15 +50,24 @@ App.jsx
 main.jsx
 
 
+
 ---
 
 ## ⚡ Getting Started
-
 ### Prerequisites
-- Node.js (>=18.x)
-- npm or yarn
+- Node.js (>= 18.x)  
+- npm or yarn  
 
 ### Installation
+```bash
+# Clone the repository
 git clone https://github.com/manuj-chadha/cnapp-dashboard-accuknox.git
+
+# Navigate to the project directory
 cd cnapp-dashboard-accuknox
+
+# Install dependencies
 npm install
+
+# Start the development server
+npm run dev

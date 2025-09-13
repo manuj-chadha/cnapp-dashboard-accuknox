@@ -48,4 +48,38 @@ Here’s the list of major technologies used:
 ## Architecture & Folder Structure
 
 Here’s what the structure looks like (approximate, based on repo):
+/src
+/components # Reusable UI components (modals, widget items etc.)
+/slices # Redux slices (dashboard, widgets, categories etc.)
+/pages / views # Main dashboard page(s)
+/public
+index.html
+tailwind.config.js
+vite.config.js
+package.json
+
+
+Key design choices:
+
+- Modular componentization: separating concerns between widget item, modal, dashboard layout etc.
+- State slice(s): Dashboard slice managing widgets/categories adds/removes etc.
+- Framer Motion + AnimatePresence for controlling presence/transition UI.
+- Tailwind for styling, dark mode, responsive layouts.
+
+---
+
+## Getting Started
+
+These are steps to run this project on your machine.
+
+### Prerequisites
+
+- Node.js (v14+ or latest stable)  
+- npm (or yarn)  
+
+### Installation
+
+git clone https://github.com/manuj-chadha/cnapp-dashboard-accuknox.git
+cd cnapp-dashboard-accuknox
+npm install
 
